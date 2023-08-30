@@ -12,8 +12,8 @@ routes.get('/users',(req,res)=>{
 routes.get('/user/:id',(req,res)=>{
     users.fetchUser(req,res)
 })
-routes.post('/user', bodyParser.json(),(res,req)=>{
-    users.resgisterUser(req,res)
+routes.post('/user', bodyParser.json(),(req,res)=>{
+    users.addUser(req,res)
 })
 routes.put('/user/:id',bodyParser.json(),(res,req)=>{
     users.updateUser(req,res)
