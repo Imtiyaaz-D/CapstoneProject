@@ -1,4 +1,5 @@
 const db = require('../config')
+// const bcrypt = require('bcrypt')
 const {hash ,compare ,hashSync} = require('bcrypt')
 const { createToken } = require('../middleware/AuthenticateUser.js')
 class Users{
@@ -29,7 +30,7 @@ class Users{
             })
         })
     }
-   async registerUser(req,res){
+   async addUser(req,res){
     const data  = req.body
         data.userPass = await hash(data.userPass, 15)
         // payload
@@ -41,8 +42,8 @@ class Users{
         const query = `
         INSERT INTO Users
         SET ?
-        `
-        db.query(query, [data],(err)=>{
+        `;
+        db.query(query, user,(err)=>{
             if(err) throw err
             //Create Token
             let token = createToken(user)
@@ -53,20 +54,21 @@ class Users{
             })
         })
     }
-    login(req,res){
+
+      login(req,res){
         const {emailAdd, userPass} =
-        req.body
+        req.body;
         const query =
         `
         SELECT firstName , lastName , gender , userRole , emailAdd , userPass , userProfile
         FROM Users
         WHERE emailAdd = '${emailAdd}';
         `
-        db.query(query,async(err, results)=>{
+        db.query(query, async (err, results)=>{
             if(err) throw err
-            if(!results?.length){
+            if(!results.length){
                 res.json({
-                    status:res.statusCode,
+                    status: res.statusCode,
                     msg : "You provided a wrong email."
                 })
             }else{
