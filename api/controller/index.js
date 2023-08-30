@@ -1,23 +1,24 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const {verifyAToken} = require('../middleware/AuthenticateUser')
 const routes = express.Router()
-const { user,products} = require('../model')
+const { users,products} = require('../model')
 
 
 // ============= User`s Routes=========
 routes.get('/users',(req,res)=>{
-    user.fetchUsers(req,res)
+    users.fetchUsers(req,res)
 })
 routes.get('/user/:id',(req,res)=>{
-    user.fetchUser(req,res)
+    users.fetchUser(req,res)
 })
-routes.post('/user',bodyParser.json(),(res,req)=>{
-    user.resgisterUser(req,res)
+routes.post('/user', bodyParser.json(),(res,req)=>{
+    users.resgisterUser(req,res)
 })
 routes.put('/user/:id',bodyParser.json(),(res,req)=>{
-    user.updateUser(req,res)
+    users.updateUser(req,res)
 })
-routes.delete('/user/:id',bodyParser,json(),(req,res)=>{
+routes.delete('/user/:id',bodyParser.json(),(req,res)=>{
     users.deleteUser(req,res)
 })
 routes.post('/login',bodyParser.json(),(req,res)=>{
@@ -26,5 +27,30 @@ routes.post('/login',bodyParser.json(),(req,res)=>{
 
 // ============= Product`s Routes ============
 routes.get('/products',(req,res)=>{
-    pr
+    products.fetchProducts(req,res)
 })
+routes.get('/products/:id',(req,res)=>{
+    products.fetchProduct(req,res)
+})
+
+routes.post('/product',bodyParser.json(),(req,res)=>{
+    products.addProduct(req,res)
+})
+
+routes.put('/products/:id',bodyParser.json(),(req,res)=>{
+    products.updateProducts(req,res)
+})
+
+// routes.patch('/products/:id',bodyParser.json(),(res,req)=>{
+//     products.fetchProduct(req,res)
+// })
+
+routes.delete('/products/:id',bodyParser.json(),(req,res)=>{
+    products.deleteProducts(req,res)
+})
+
+module.exports = {
+    express,
+    routes,
+    verifyAToken
+}
