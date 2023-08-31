@@ -1,5 +1,5 @@
 const db = require('../config')
-// const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 const {hash ,compare ,hashSync} = require('bcrypt')
 const { createToken } = require('../middleware/AuthenticateUser.js')
 class Users{
@@ -30,7 +30,7 @@ class Users{
             })
         })
     }
-   async addUser(req,res){
+   async registerUser(req,res){
     const data  = req.body
         data.userPass = await hash(data.userPass, 15)
         // payload
@@ -41,9 +41,9 @@ class Users{
         // Query
         const query = `
         INSERT INTO Users
-        SET ?
+        SET ?;
         `;
-        db.query(query, user,(err)=>{
+        db.query(query, [data],(err)=>{
             if(err) throw err
             //Create Token
             let token = createToken(user)
@@ -94,7 +94,23 @@ class Users{
             }
         })
     }
-    
+    //  addUser(req,res){
+    //     const data = req.body;
+    //     const query =  
+    //     `
+    //     INSERT INTO Users
+    //     SET ?;
+    //     ` 
+    //       db.query(query,[data],err =>{
+    //         if(err) throw err
+    //         res.json({
+    //             status: res.statusCode,
+    //             msg:"user has bee added"
+    //         })
+    //       })  
+    //  }
+
+
     updateUser(req, res) {
         const query = `
           UPDATE Users
