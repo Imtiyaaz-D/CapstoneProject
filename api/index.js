@@ -6,7 +6,7 @@ const cors = require("cors");
 // Importing error handling middlware
 const cookieParser = require("cookie-parser");
 // const bodyParser = require("body-parser");
-// const errorHandling = require('./middleware/ErrorHandling.js')
+const errorHandling = require('./middleware/ErrorHandling.js')
 const port = +process.env.PORT || 3000
 
 // Middleware - Application level
@@ -33,6 +33,9 @@ app.use(express.static("./static")),
 routes.get("^/$|/CapstoneProject", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../api/static/html/index.html"));
 });
+
+
+app.use(errorHandling)
 
 app.listen(port, () => {
   console.log(`The server is running on port ${port}`);
