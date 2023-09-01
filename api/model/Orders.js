@@ -20,7 +20,7 @@ class Orders{
         INSERT INTO Orders SET ?
         `
         db.query(query,[req.body],(err)=>{
-            if(err) throw err
+            if (err) throw err
             res.json({
                 status:res.statusCode,
                 results,

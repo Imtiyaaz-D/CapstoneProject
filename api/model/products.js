@@ -40,11 +40,13 @@ class Products{
             })
         })
     }
-    addProduct(req, res){
+    async addProduct(req, res){
+        const data = req.body
         const query = `
-            INSERT INTO Products SET ?
+            INSERT INTO Products
+            SET ?;
         `
-        db.query(query, [req.body], (err)=>{
+        db.query(query, [data], (err)=>{
             if (err) throw err
             res.json({
                 status: res.statusCode,
