@@ -74,6 +74,5 @@ routes.delete('/orders/:id',bodyParser.json(),(req,res)=>{
 
 module.exports = {
     express,
-    routes,
-    verifyAToken
+    routes
 }
