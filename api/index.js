@@ -1,11 +1,11 @@
 const { express, routes } = require("./controller");
-const db = require("./config");
+// const db = require("./config");
 const path = require("path");
 const app = express();
 const cors = require("cors");
 // Importing error handling middlware
 const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 // const errorHandling = require('./middleware/ErrorHandling.js')
 const port = +process.env.PORT || 3000
 
@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 // static
 app.use(express.static("./static")),
   app.use(
+    express.json(),
     express.urlencoded({
       extended: false,
     }),
